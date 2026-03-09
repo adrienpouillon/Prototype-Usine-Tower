@@ -44,7 +44,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmdLine, i
 				//Mesh* mesh = app->CreateEmptyMesh();
 				meshR.CreateMeshInstance();
 				meshR.mp_mesh->BuildCylinder(0.5f, 20, 1.f, { 1.f,1.f,1.f,1.f });
-				meshR.mp_mesh->SetTexture(_Stone);
+				//meshR.mp_mesh->SetTexture(_Stone);
 
 
 				XMFLOAT3 pos = XMFLOAT3(0.f, 1.f, -5.f);
@@ -61,7 +61,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmdLine, i
 				meshR.CreateMeshInstance();
 				meshR.mp_mesh->BuildUvSphere(1.f, 20, 20, { 1, 1, 1, 1 });
 				meshR.mp_mesh->MakeRainbowVertices();
-				meshR.mp_mesh->SetTexture(_Stone);
+				//meshR.mp_mesh->SetTexture(_Stone);
 
 				XMFLOAT3 pos = XMFLOAT3( -1.f, 1.f, 5.f);
 
@@ -78,7 +78,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmdLine, i
 				//Mesh* mesh = app->CreateEmptyMesh();
 				meshR.CreateMeshInstance();
 				meshR.mp_mesh->BuildPlane(XMFLOAT2(50.f, 50.f), { 1,1,1,1 }, true);
-				meshR.mp_mesh->SetTexture(_Grass);
+				//meshR.mp_mesh->SetTexture(_Grass);
 
 				XMFLOAT3 pos = XMFLOAT3( 0.f, -5.f, 10.f);
 				floor->SetWorldPosition(pos);
