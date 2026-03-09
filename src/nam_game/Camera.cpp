@@ -25,6 +25,8 @@ void Camera::OnStart()
 void Camera::OnUpdate()
 {
 	App* app = App::Get();
+	XMFLOAT3 pos = mp_appCamera->GetWorldPosition();
+
 	float dt = app->GetChrono().GetScaledDeltaTime();
 
 	GameObject* appCamera = app->GetCamera();

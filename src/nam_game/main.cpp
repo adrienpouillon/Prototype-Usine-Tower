@@ -40,51 +40,58 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmdLine, i
 			//creation player
 			Player* player = caveScene->CreateGameObject<Player>();
 			{
-				Mesh* mesh = app->CreateEmptyMesh();
-				mesh->BuildCylinder(0.5f, 20, 1.f, { 1,1,1,1 });
-				mesh->SetTexture(_Stone);
+				MeshRendererComponent meshR;
+				//Mesh* mesh = app->CreateEmptyMesh();
+				meshR.CreateMeshInstance();
+				meshR.mp_mesh->BuildCylinder(0.5f, 20, 1.f, { 1.f,1.f,1.f,1.f });
+				meshR.mp_mesh->SetTexture(_Stone);
 
 
 				XMFLOAT3 pos = XMFLOAT3(0.f, 1.f, -5.f);
 				player->SetWorldPosition(pos);
-
-				Print(pos.y);
-
-				player->SetMesh(mesh);
+				player->AddComponent(meshR);
+				//player->SetMesh(mesh);
 			}
 
 			//creation enemy
 			GameObject* enemy = caveScene->CreateGameObject<GameObject>();
 			{
-				Mesh* mesh = app->CreateEmptyMesh();
-				mesh->BuildUvSphere(1.f, 20, 20, { 1, 1, 1, 1 });
-				mesh->MakeRainbowVertices();
-				mesh->SetTexture(_Stone);
+				MeshRendererComponent meshR;
+				//Mesh* mesh = app->CreateEmptyMesh();
+				meshR.CreateMeshInstance();
+				meshR.mp_mesh->BuildUvSphere(1.f, 20, 20, { 1, 1, 1, 1 });
+				meshR.mp_mesh->MakeRainbowVertices();
+				meshR.mp_mesh->SetTexture(_Stone);
 
 				XMFLOAT3 pos = XMFLOAT3( -1.f, 1.f, 5.f);
 
 				enemy->SetSphereCollider();
 				enemy->SetWorldPosition(pos);
-				enemy->SetMesh(mesh);
+				enemy->AddComponent(meshR);
+				//enemy->SetMesh(mesh);
 			}		
 
 			//creation floor
 			GameObject* floor = caveScene->CreateGameObject<GameObject>();
 			{
-				Mesh* mesh = app->CreateEmptyMesh();
-				mesh->BuildPlane(XMFLOAT2(50.f, 50.f), { 1,1,1,1 }, true);
-				mesh->SetTexture(_Grass);
+				MeshRendererComponent meshR;
+				//Mesh* mesh = app->CreateEmptyMesh();
+				meshR.CreateMeshInstance();
+				meshR.mp_mesh->BuildPlane(XMFLOAT2(50.f, 50.f), { 1,1,1,1 }, true);
+				meshR.mp_mesh->SetTexture(_Grass);
 
 				XMFLOAT3 pos = XMFLOAT3( 0.f, -5.f, 10.f);
 				floor->SetWorldPosition(pos);
 
-				floor->SetMesh(mesh);
+				floor->AddComponent(meshR);
+				//floor->SetMesh(mesh);
 			}
 
 			//creation Camera
 			Camera* camera = caveScene->CreateGameObject<Camera>();
 			{
 				camera->SetAppCamera(appCamera);
+				camera->SetTarget(player);
 			}
 
 			//creation Particle Emitter
@@ -96,17 +103,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmdLine, i
 
 				ParticleEmitersComponent emiters;
 				{
-					XMFLOAT3 maxXYZ = { 0,2,0 }; XMFLOAT3 minXYZ = { 0,2,0 }; XMFLOAT3 maxDir = { 1,1,1 }; XMFLOAT3 minDir = { -1,-1,-1 }; XMFLOAT3 startColor = { 1,0,0 }; XMFLOAT3 endColor = { 1,1,0 }; float maxSpeed = 0.5f; float minSpeed = 0.3f; float lifeTime = 2.f; float spawnRate = 1.f;
+					XMFLOAT3 maxXYZ = { 0,2,0 }; XMFLOAT3 minXYZ = { 0,2,0 }; XMFLOAT3 maxDir = { 1,1,1 }; XMFLOAT3 minDir = { -1,-1,-1 }; XMFLOAT3 startColor = { 1,0,0 }; XMFLOAT3 endColor = { 1,1,0 }; float maxSpeed = 0.5f; float minSpeed = 0.3f; float lifeTime = 2.f; float spawnRate = 100.f;
 					emiters.AddEmiter(maxXYZ, minXYZ, maxDir, minDir, startColor, endColor, maxSpeed, minSpeed, lifeTime, spawnRate);
 				}
 
 				{
-					XMFLOAT3 maxXYZ = { 0,3,0 }; XMFLOAT3 minXYZ = { 0,3,0 }; XMFLOAT3 maxDir = { 1,1,1 }; XMFLOAT3 minDir = { -1,-1,-1 }; XMFLOAT3 startColor = { 0,1,0 }; XMFLOAT3 endColor = { 0,1,1 }; float maxSpeed = 0.5f; float minSpeed = 0.3f; float lifeTime = 2.f; float spawnRate = 1.f;
+					XMFLOAT3 maxXYZ = { 0,3,0 }; XMFLOAT3 minXYZ = { 0,3,0 }; XMFLOAT3 maxDir = { 1,1,1 }; XMFLOAT3 minDir = { -1,-1,-1 }; XMFLOAT3 startColor = { 0,1,0 }; XMFLOAT3 endColor = { 0,1,1 }; float maxSpeed = 0.5f; float minSpeed = 0.3f; float lifeTime = 2.f; float spawnRate = 100.f;
 					emiters.AddEmiter(maxXYZ, minXYZ, maxDir, minDir, startColor, endColor, maxSpeed, minSpeed, lifeTime, spawnRate);
 				}
 
 				{
-					XMFLOAT3 maxXYZ = { 0,1,0 }; XMFLOAT3 minXYZ = { 0,1,0 }; XMFLOAT3 maxDir = { 1,1,1 }; XMFLOAT3 minDir = { -1,-1,-1 }; XMFLOAT3 startColor = { 0,0,1 }; XMFLOAT3 endColor = { 1,0,1 }; float maxSpeed = 0.5f; float minSpeed = 0.3f; float lifeTime = 2.f; float spawnRate = 1.f;
+					XMFLOAT3 maxXYZ = { 0,1,0 }; XMFLOAT3 minXYZ = { 0,1,0 }; XMFLOAT3 maxDir = { 1,1,1 }; XMFLOAT3 minDir = { -1,-1,-1 }; XMFLOAT3 startColor = { 0,0,1 }; XMFLOAT3 endColor = { 1,0,1 }; float maxSpeed = 0.5f; float minSpeed = 0.3f; float lifeTime = 2.f; float spawnRate = 100.f;
 					emiters.AddEmiter(maxXYZ, minXYZ, maxDir, minDir, startColor, endColor, maxSpeed, minSpeed, lifeTime, spawnRate);
 				}
 
