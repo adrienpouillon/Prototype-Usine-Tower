@@ -36,55 +36,47 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmdLine, i
 		Scene* caveScene = app->CreateScene(0);
 		{
 			//initialisation des objets
+			Light* p_sun = app->GetLightManager().CreateLight();
+			p_sun->SetToDirectionalLight(0.75f, { 0, -1, 0 }, { 1, 1, 1 });
 
 			//creation player
 			Player* player = caveScene->CreateGameObject<Player>();
 			{
-				MeshRendererComponent meshR;
-				//Mesh* mesh = app->CreateEmptyMesh();
-				meshR.CreateMeshInstance();
-				meshR.mp_mesh->BuildCylinder(0.5f, 20, 1.f, { 1.f,1.f,1.f,1.f });
-				//meshR.mp_mesh->SetTexture(_Stone);
+				Mesh* mesh = app->CreateEmptyMesh();
+				mesh->BuildCylinder(0.5f, 20, 1.f, { 1.f,1.f,1.f,1.f });
+				mesh->SetTexture(_Stone);
 
 
 				XMFLOAT3 pos = XMFLOAT3(0.f, 1.f, -5.f);
 				player->SetWorldPosition(pos);
-				player->AddComponent(meshR);
-				//player->SetMesh(mesh);
+				player->SetMesh(mesh);
 			}
 
 			//creation enemy
 			GameObject* enemy = caveScene->CreateGameObject<GameObject>();
 			{
-				MeshRendererComponent meshR;
-				//Mesh* mesh = app->CreateEmptyMesh();
-				meshR.CreateMeshInstance();
-				meshR.mp_mesh->BuildUvSphere(1.f, 20, 20, { 1, 1, 1, 1 });
-				meshR.mp_mesh->MakeRainbowVertices();
-				//meshR.mp_mesh->SetTexture(_Stone);
+				Mesh* mesh = app->CreateEmptyMesh();
+				mesh->BuildUvSphere(1.f, 20, 20, { 1, 1, 1, 1 });
+				mesh->MakeRainbowVertices();
+				mesh->SetTexture(_Stone);
 
 				XMFLOAT3 pos = XMFLOAT3( -1.f, 1.f, 5.f);
 
 				enemy->SetSphereCollider();
 				enemy->SetWorldPosition(pos);
-				enemy->AddComponent(meshR);
-				//enemy->SetMesh(mesh);
+				enemy->SetMesh(mesh);
 			}		
 
 			//creation floor
 			GameObject* floor = caveScene->CreateGameObject<GameObject>();
 			{
-				MeshRendererComponent meshR;
-				//Mesh* mesh = app->CreateEmptyMesh();
-				meshR.CreateMeshInstance();
-				meshR.mp_mesh->BuildPlane(XMFLOAT2(50.f, 50.f), { 1,1,1,1 }, true);
-				//meshR.mp_mesh->SetTexture(_Grass);
+				Mesh* mesh = app->CreateEmptyMesh();
+				mesh->BuildPlane(XMFLOAT2(50.f, 50.f), { 1,1,1,1 }, true);
+				mesh->SetTexture(_Grass);
 
 				XMFLOAT3 pos = XMFLOAT3( 0.f, -5.f, 10.f);
 				floor->SetWorldPosition(pos);
-
-				floor->AddComponent(meshR);
-				//floor->SetMesh(mesh);
+				floor->SetMesh(mesh);
 			}
 
 			//creation Camera
