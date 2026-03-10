@@ -6,14 +6,12 @@ enum class Tag : int
 	_Player,
 	_Enemy,
 	_Shot,
-	_Particles,
 	_Obstacle,
 	_Collectible,
 	_Floor,
 	_Rail,
 	_RailGenerator,
 	_Camera,
-	_Other,
 	_CountTag
 };
 

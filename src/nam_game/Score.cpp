@@ -3,6 +3,7 @@
 
 Score::Score()
 {
+	m_score = 0;
 }
 
 void Score::OnInit()

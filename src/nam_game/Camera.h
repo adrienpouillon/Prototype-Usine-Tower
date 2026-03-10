@@ -40,11 +40,6 @@ public:
 	void SetRotateLocal(const float yaw, const float pitch, const float roll);
 	void SetRotateWorld(const float yaw, const float pitch, const float roll);
 
-	void RotateLocal(const float yaw, const float pitch, const float roll);
-	void RotateLocal(const XMFLOAT3& yawPitchRoll);
-	void RotateWorld(const float yaw, const float pitch, const float roll);
-	void RotateWorld(const XMFLOAT3& yawPitchRoll);
-
 	void SetAppCamera(GameObject* appCamera);
 	GameObject* GetAppCamera();
 

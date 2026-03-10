@@ -1,8 +1,6 @@
 #include "pch.h"
 #include "Camera.h"
 
-#include "SceneTags.h"
-
 Camera::Camera()
 {
 	m_debugMode = false;
@@ -27,16 +25,7 @@ void Camera::OnStart()
 void Camera::OnUpdate()
 {
 	App* app = App::Get();
-
-	SceneManager& sm = app->GetSceneManager();
-
-	auto it = sm.GetCurrentScenes().find(sm.GetSceneByTag(_PauseScene)->GetId());
-
-	if (it != sm.GetCurrentScenes().end())
-	{
-		Input::ShowMouse();
-		return;
-	}
+	XMFLOAT3 pos = mp_appCamera->GetWorldPosition();
 
 	float dt = app->GetChrono().GetScaledDeltaTime();
 
@@ -131,26 +120,6 @@ void Camera::SetRotateLocal(const float yaw, const float pitch, const float roll
 void Camera::SetRotateWorld(const float yaw, const float pitch, const float roll)
 {
 	mp_appCamera->SetWorldYPR(yaw, pitch, roll);
-}
-
-void Camera::RotateLocal(const float yaw, const float pitch, const float roll)
-{
-	mp_appCamera->RotateLocalYPR(yaw, pitch, roll);
-}
-
-void Camera::RotateLocal(const XMFLOAT3& yawPitchRoll)
-{
-	mp_appCamera->RotateLocalYPR(yawPitchRoll);
-}
-
-void Camera::RotateWorld(const float yaw, const float pitch, const float roll)
-{
-	mp_appCamera->RotateWorldYPR(yaw, pitch, roll);
-}
-
-void Camera::RotateWorld(const XMFLOAT3& yawPitchRoll)
-{
-	mp_appCamera->RotateWorldYPR(yawPitchRoll);
 }
 
 void Camera::SetAppCamera(GameObject* appCamera)
