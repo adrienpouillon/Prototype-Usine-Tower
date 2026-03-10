@@ -292,7 +292,7 @@ namespace nam
 
 		TransformComponent& camTransform = mp_camera->GetComponent<TransformComponent>();
 
-		XMFLOAT3 pos = { 0.f, 5.f, 0.f };
+		XMFLOAT3 pos = { 0.f, 10.f, 0.f };
 
 		camTransform.SetWorldPosition(pos);
 		camTransform.SetWorldYPR(0.f, 0.f, 0.f);

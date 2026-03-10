@@ -18,8 +18,8 @@ void Camera::OnInit()
 
 void Camera::OnStart()
 {
-	m_debugMode = false;
-	m_rotateMode = true;
+	/*m_debugMode = false;
+	m_rotateMode = true;*/
 }
 
 void Camera::OnUpdate()
@@ -30,66 +30,59 @@ void Camera::OnUpdate()
 	float dt = app->GetChrono().GetScaledDeltaTime();
 
 	GameObject* appCamera = app->GetCamera();
-	bool debugMode = GetDebugMode();
-	bool rotateMode = GetRotateMode();
 
-	if (debugMode)
+	//if (debugMode)
+	//{
+	//	XMFLOAT3 pos = GetComponent<TransformComponent>().GetWorldPosition();
+
+	//	//'Z' 'S' VK_UP VK_DOWN VK_SPACE VK_LCONTROL
+	//	if (Input::IsKey('Z')) { MoveForward(CAMERA_SPEED_MOVE * dt); }
+	//	if (Input::IsKey('S')) { MoveForward(-CAMERA_SPEED_MOVE * dt); }
+
+	//	if (Input::IsKey(VK_SPACE)) { XMFLOAT3 translation = { 0, CAMERA_SPEED_UP * dt, 0 }; TranslateWorld(translation); }
+	//	if (Input::IsKey(VK_LCONTROL)) { XMFLOAT3 translation = { 0, -CAMERA_SPEED_UP * dt, 0 }; TranslateWorld(translation); }
+	//}
+	
+	/*XMFLOAT3 posTarget = GetWorldPosition();
+	GameObject* target = GetTarget();
+	if (target != nullptr)
 	{
-		//'Z' 'S' VK_UP VK_DOWN VK_SPACE VK_LCONTROL
-		if (Input::IsKey('Z')) { MoveForward(CAMERA_SPEED_MOVE * dt); }
-		if (Input::IsKey('S')) { MoveForward(-CAMERA_SPEED_MOVE * dt); }
-
-		if (Input::IsKey(VK_SPACE)) { XMFLOAT3 translation = { 0, CAMERA_SPEED_UP * dt, 0 }; TranslateWorld(translation); }
-		if (Input::IsKey(VK_LCONTROL)) { XMFLOAT3 translation = { 0, -CAMERA_SPEED_UP * dt, 0 }; TranslateWorld(translation); }
+		posTarget = target->GetWorldPosition();
+		SetWorldPosition(posTarget);
 	}
-	else
+	appCamera->SetWorldPosition(posTarget);*/
+	
+	if (Input::IsKey('Z'))
 	{
-		XMFLOAT3 posTarget = GetWorldPosition();
-		GameObject* target = GetTarget();
-		if (target != nullptr)
-		{
-			posTarget = target->GetWorldPosition();
-			SetWorldPosition(posTarget);
-		}
-		appCamera->SetWorldPosition(posTarget);
+		MoveWorldForward(CAMERA_SPEED_UP * dt);
 	}
-
-	if (Input::IsKeyDown(VK_SHIFT)) { SetDebugMode(!debugMode); }
-	if (Input::IsKeyDown(VK_TAB)) { SetRotateMode(!rotateMode); }
-
-	if (rotateMode)
+	if (Input::IsKey('S'))
 	{
-		Input::HideMouse();
-
-		Window& window = app->GetWindow();
-		XMFLOAT2 size = XMFLOAT2((float)window.m_clientWidth, (float)window.m_clientHeight);
-		XMFLOAT2 centerSize = XMFLOAT2(size.x * 0.5f, size.y * 0.5f);
-		Input::UpdateMouseDelta();
-		XMFLOAT2 posMouse = Input::GetMousePostion();
-		XMFLOAT2 delta = Input::GetMouseDelta();
-		Input::SetMousePosition(centerSize);
-
-		// Rotation
-		XMFLOAT3 yawPitchRoll = GetYawPitchRoll();
-		yawPitchRoll.x += (int)delta.x * SENSITIVITY_CAMERA;
-		yawPitchRoll.y += (int)delta.y * SENSITIVITY_CAMERA;
-
-		yawPitchRoll.y = std::clamp(yawPitchRoll.y, PITCH_MIN, PITCH_MAX);
-
-		float angleZero = 0.f;
-		GameObject* target = GetTarget();
-		if (target != nullptr)
-		{
-			target->SetWorldYPR(yawPitchRoll.x, yawPitchRoll.y, angleZero);
-		}
-		SetRotateLocal(yawPitchRoll.x, yawPitchRoll.y, angleZero);
-		SetYawPitchRoll(yawPitchRoll);
-
+		MoveWorldForward(-CAMERA_SPEED_UP * dt);
 	}
-	else
+	if (Input::IsKey('Q'))
 	{
-		Input::ShowMouse();
+		XMFLOAT3 translation = { 0, 0, CAMERA_SPEED_UP * dt };
+		TranslateWorld(translation);
 	}
+	if (Input::IsKey('D'))
+	{
+		XMFLOAT3 translation = { 0, 0, -CAMERA_SPEED_UP * dt };
+		TranslateWorld(translation);
+	}
+	if (Input::IsKey(VK_SPACE))
+	{
+		XMFLOAT3 translation = { 0, CAMERA_SPEED_UP * dt, 0 };
+		TranslateWorld(translation);
+	}
+	if (Input::IsKey(VK_LCONTROL))
+	{
+		XMFLOAT3 translation = { 0, -CAMERA_SPEED_UP * dt, 0 };
+		TranslateWorld(translation);
+	}
+
+	SetRotateWorld(89.5 , 89.5, 0);
+
 }
 
 void Camera::OnCollision(u32 self, u32 other, const CollisionInfo& collisionInfo)

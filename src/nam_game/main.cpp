@@ -39,33 +39,19 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmdLine, i
 			Light* p_sun = app->GetLightManager().CreateLight();
 			p_sun->SetToDirectionalLight(0.75f, { 0, -1, 0 }, { 1, 1, 1 });
 
-			//creation player
 			Player* player = caveScene->CreateGameObject<Player>();
+
+			Enemy* enemy = caveScene->CreateGameObject<Enemy>();
 			{
 				Mesh* mesh = app->CreateEmptyMesh();
-				mesh->BuildCylinder(0.5f, 20, 1.f, { 1.f,1.f,1.f,1.f });
-				mesh->SetTexture(_Stone);
+				mesh->BuildCylinder(0.5f, 20, 1.f,{ 1.f,1.f,1.f,1.f });
+				mesh->SetTexture(_Rainbow);
 
 
-				XMFLOAT3 pos = XMFLOAT3(0.f, 1.f, -5.f);
-				player->SetWorldPosition(pos);
-				player->SetMesh(mesh);
-			}
-
-			//creation enemy
-			GameObject* enemy = caveScene->CreateGameObject<GameObject>();
-			{
-				Mesh* mesh = app->CreateEmptyMesh();
-				mesh->BuildUvSphere(1.f, 20, 20, { 1, 1, 1, 1 });
-				mesh->MakeRainbowVertices();
-				mesh->SetTexture(_Stone);
-
-				XMFLOAT3 pos = XMFLOAT3( -1.f, 1.f, 5.f);
-
-				enemy->SetSphereCollider();
+				XMFLOAT3 pos = XMFLOAT3(0.f, -20.f, -20.f);
 				enemy->SetWorldPosition(pos);
 				enemy->SetMesh(mesh);
-			}		
+			}
 
 			//creation floor
 			GameObject* floor = caveScene->CreateGameObject<GameObject>();
@@ -74,7 +60,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmdLine, i
 				mesh->BuildPlane(XMFLOAT2(50.f, 50.f), { 1,1,1,1 }, true);
 				mesh->SetTexture(_Grass);
 
-				XMFLOAT3 pos = XMFLOAT3( 0.f, -5.f, 10.f);
+				XMFLOAT3 pos = XMFLOAT3( 0.f, -20.f, 0.f);
 				floor->SetWorldPosition(pos);
 				floor->SetMesh(mesh);
 			}
@@ -83,40 +69,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmdLine, i
 			Camera* camera = caveScene->CreateGameObject<Camera>();
 			{
 				camera->SetAppCamera(appCamera);
-				camera->SetTarget(player);
-			}
-
-			//creation Particle Emitter
-			GameObject* particleEmitter = caveScene->CreateGameObject<GameObject>();
-			{
-				TransformComponent transform;
-				DirectX::XMFLOAT3 pos = { 0, 1, 4 };
-				transform.SetWorldPosition(pos);
-
-				ParticleEmitersComponent emiters;
-				{
-					XMFLOAT3 maxXYZ = { 0,2,0 }; XMFLOAT3 minXYZ = { 0,2,0 }; XMFLOAT3 maxDir = { 1,1,1 }; XMFLOAT3 minDir = { -1,-1,-1 }; XMFLOAT3 startColor = { 1,0,0 }; XMFLOAT3 endColor = { 1,1,0 }; float maxSpeed = 0.5f; float minSpeed = 0.3f; float lifeTime = 2.f; float spawnRate = 100.f;
-					emiters.AddEmiter(maxXYZ, minXYZ, maxDir, minDir, startColor, endColor, maxSpeed, minSpeed, lifeTime, spawnRate);
-				}
-
-				{
-					XMFLOAT3 maxXYZ = { 0,3,0 }; XMFLOAT3 minXYZ = { 0,3,0 }; XMFLOAT3 maxDir = { 1,1,1 }; XMFLOAT3 minDir = { -1,-1,-1 }; XMFLOAT3 startColor = { 0,1,0 }; XMFLOAT3 endColor = { 0,1,1 }; float maxSpeed = 0.5f; float minSpeed = 0.3f; float lifeTime = 2.f; float spawnRate = 100.f;
-					emiters.AddEmiter(maxXYZ, minXYZ, maxDir, minDir, startColor, endColor, maxSpeed, minSpeed, lifeTime, spawnRate);
-				}
-
-				{
-					XMFLOAT3 maxXYZ = { 0,1,0 }; XMFLOAT3 minXYZ = { 0,1,0 }; XMFLOAT3 maxDir = { 1,1,1 }; XMFLOAT3 minDir = { -1,-1,-1 }; XMFLOAT3 startColor = { 0,0,1 }; XMFLOAT3 endColor = { 1,0,1 }; float maxSpeed = 0.5f; float minSpeed = 0.3f; float lifeTime = 2.f; float spawnRate = 100.f;
-					emiters.AddEmiter(maxXYZ, minXYZ, maxDir, minDir, startColor, endColor, maxSpeed, minSpeed, lifeTime, spawnRate);
-				}
-
-				particleEmitter->AddComponent(transform);
-				particleEmitter->AddComponent(emiters);
-			}
-
-			//creation score
-			Score* score = caveScene->CreateGameObject<Score>();
-			{
-				//score->AddComponent<>
 			}
 
 			//button

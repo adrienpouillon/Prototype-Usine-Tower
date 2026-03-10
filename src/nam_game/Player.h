@@ -12,6 +12,8 @@ class Player : public GameObject
 private:
 	GameObject* mp_particleEmitter;
 	Score* m_score;
+	GameObject* wall;
+
 public:
 	Player();
 

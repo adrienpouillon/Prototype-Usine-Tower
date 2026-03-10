@@ -14,7 +14,7 @@ void Player::OnInit()
 
 void Player::OnStart()
 {
-	SetWorldPosition({ 0, 0, 0 });
+	SetWorldPosition({ 0, 30, 0 });
 }
 
 void Player::OnUpdate()
@@ -25,28 +25,40 @@ void Player::OnUpdate()
 	XMFLOAT3 scalePlayer = GetWorldScale();
 	float speed = SPEED_PLAYER * dt;
 	XMFLOAT3 posPlayer = GetWorldPosition();
+	
+	if (Input::IsKeyDown(VK_LBUTTON))
+	{
+		wall = GetScene()->CreateGameObject<GameObject>();
+		{
+			BoxColliderComponent colli;
+			wall->AddComponent(colli);
+			wall->SetBoxCollider();
+			wall->SetActiveEntity(true);
 
-	if (Input::IsKey('Z'))
-	{
-		MoveWorldForward(speed);
-	}
-	if (Input::IsKey('S'))
-	{
-		MoveWorldForward(-speed);
+			Mesh* mesh = App::Get()->CreateEmptyMesh();
+			mesh->BuildBox({50,2,2}, {0, 1, 0, 0});
+			mesh->MakeRainbowVertices();
+
+			wall->SetTag((int)Tag::_Obstacle);
+			wall->SetSphereCollider();
+			wall->SetWorldPosition({0,-20,0});
+			wall->SetMesh(mesh);
+
+		}
 	}
 
 	chrono.SetTimeWarp(1.f);
 
-	if (Input::IsKey('A'))
+	/*if (Input::IsKey('A'))
 	{
 		chrono.SetTimeWarp(0.25f);
 	}
 	if (Input::IsKey('E'))
 	{
 		chrono.SetTimeWarp(4.f);
-	}
+	}*/
 
-	if (Input::IsKey(VK_SPACE))
+	/*if (Input::IsKey(VK_SPACE))
 	{
 		XMFLOAT3 translation = { 0, speed, 0 };
 		TranslateWorld(translation);
@@ -55,7 +67,7 @@ void Player::OnUpdate()
 	{
 		XMFLOAT3 translation = { 0, -speed, 0 };
 		TranslateWorld(translation);
-	}
+	}*/
 
 	/*GameObject* gameObjectParticleEmitter = GetParticleEmitter();
 	ParticleEmitersComponent& particleEmiters = gameObjectParticleEmitter->GetComponent<ParticleEmitersComponent>();
