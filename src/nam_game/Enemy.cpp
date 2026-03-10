@@ -30,7 +30,7 @@ void Enemy::OnUpdate()
 
 	chrono.SetTimeWarp(1.f);
 
-	XMFLOAT3 translation = { 0, 0, SPEED_PLAYER * dt };
+	XMFLOAT3 translation = { 0, 0, 3 * dt };
 	TranslateWorld(translation);
 
 }
@@ -45,6 +45,14 @@ void Enemy::OnCollision(u32 self, u32 other, const CollisionInfo& collisionInfo)
 		GameObject* wall = (GameObject*)gameObject;
 
 		wall->DestroyGameObject();
+		
+	}
+	if (tagOther == (int)Tag::_Shot)
+	{
+		GameObject* shot = (GameObject*)gameObject;
+
+		shot->DestroyGameObject();
+		DestroyGameObject();
 	}
 }
 

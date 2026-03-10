@@ -12,7 +12,12 @@ class Player : public GameObject
 private:
 	GameObject* mp_particleEmitter;
 	Score* m_score;
-	GameObject* wall;
+	std::vector<GameObject*> shots;
+	GameObject* mp_target;
+	GameObject* mp_wall;
+
+	Timer m_afkTimer = {};
+
 
 public:
 	Player();
@@ -22,6 +27,9 @@ public:
 	void OnUpdate() override;
 	void OnCollision(u32 self, u32 other, const CollisionInfo& collisionInfo) override;
 	void OnDestroy() override;
+
+	void SetTarget(GameObject* p_target);
+	void SetWall(GameObject* p_Wall);
 
 	void SetParticleEmitter(GameObject* particleEmitter);
 	GameObject* GetParticleEmitter();

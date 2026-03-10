@@ -40,7 +40,35 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmdLine, i
 			p_sun->SetToDirectionalLight(0.75f, { 0, -1, 0 }, { 1, 1, 1 });
 
 			Player* player = caveScene->CreateGameObject<Player>();
+			{
+				Mesh* mesh = app->CreateEmptyMesh();
+				mesh->BuildBox({1,6,1}, {1.f,1.f,1.f,1.f});
+				mesh->SetTexture(_Rainbow);
 
+
+				XMFLOAT3 pos = XMFLOAT3(5.f, -20.f, 3.f);
+				player->SetWorldPosition(pos);
+				player->SetMesh(mesh);
+			}
+
+			GameObject* wall = caveScene->CreateGameObject<GameObject>();
+			{
+				BoxColliderComponent colli;
+				wall->AddComponent(colli);
+				wall->SetBoxCollider();
+				wall->SetActiveEntity(true);
+
+				Mesh* mesh = App::Get()->CreateEmptyMesh();
+				mesh->BuildBox({ 50,2,2 }, { 0, 1, 0, 0 });
+				mesh->MakeRainbowVertices();
+
+				wall->SetTag((int)Tag::_Obstacle);
+				wall->SetSphereCollider();
+				wall->SetWorldPosition({ 0,-20,0 });
+				wall->SetMesh(mesh);
+
+			}
+			player->SetWall(wall);
 			Enemy* enemy = caveScene->CreateGameObject<Enemy>();
 			{
 				Mesh* mesh = app->CreateEmptyMesh();
@@ -52,7 +80,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmdLine, i
 				enemy->SetWorldPosition(pos);
 				enemy->SetMesh(mesh);
 			}
-
+			player->SetTarget(enemy);
 			//creation floor
 			GameObject* floor = caveScene->CreateGameObject<GameObject>();
 			{

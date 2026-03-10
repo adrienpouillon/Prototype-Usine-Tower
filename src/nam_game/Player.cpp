@@ -8,71 +8,77 @@ Player::Player()
 
 void Player::OnInit()
 {
+	m_afkTimer.Init(0.7f);
+
 	SetBehavior();
 	SetTag((int)Tag::_Player);
 }
 
 void Player::OnStart()
 {
-	SetWorldPosition({ 0, 30, 0 });
 }
 
 void Player::OnUpdate()
 {
 	AppChrono& chrono = App::Get()->GetChrono();
-	float dt = chrono.GetScaledDeltaTime();
+    float dt = chrono.GetScaledDeltaTime();
 
-	XMFLOAT3 scalePlayer = GetWorldScale();
-	float speed = SPEED_PLAYER * dt;
 	XMFLOAT3 posPlayer = GetWorldPosition();
-	
-	if (Input::IsKeyDown(VK_LBUTTON))
-	{
-		wall = GetScene()->CreateGameObject<GameObject>();
+
+    // Mise à jour du timer de tir
+    if (m_afkTimer.IsTargetReached())
+    {
+		if (mp_target && mp_wall != nullptr)
 		{
+			GameObject* shot = GetScene()->CreateGameObject<GameObject>();
+
 			BoxColliderComponent colli;
-			wall->AddComponent(colli);
-			wall->SetBoxCollider();
-			wall->SetActiveEntity(true);
+			shot->AddComponent(colli);
+			shot->SetBoxCollider();
+			shot->SetActiveEntity(true);
 
 			Mesh* mesh = App::Get()->CreateEmptyMesh();
-			mesh->BuildBox({50,2,2}, {0, 1, 0, 0});
+			mesh->BuildBox({ 1,1,1 }, { 0, 0, 1, 0 });
 			mesh->MakeRainbowVertices();
 
-			wall->SetTag((int)Tag::_Obstacle);
-			wall->SetSphereCollider();
-			wall->SetWorldPosition({0,-20,0});
-			wall->SetMesh(mesh);
+			shot->SetTag((int)Tag::_Shot);
+			shot->SetSphereCollider();
 
+			shot->SetWorldPosition({ posPlayer.x, posPlayer.y+ GetWorldScale().y*0.5f, posPlayer.z});
+			shot->SetMesh(mesh);
+
+			XMFLOAT3 t = mp_target->GetWorldPosition();
+			shot->LookAtWorld(t);
+
+			shots.push_back(shot);
+
+			m_afkTimer.Init(0.7f);
 		}
 	}
-
-	chrono.SetTimeWarp(1.f);
-
-	/*if (Input::IsKey('A'))
+	else
 	{
-		chrono.SetTimeWarp(0.25f);
+		m_afkTimer.Update(dt);
 	}
-	if (Input::IsKey('E'))
-	{
-		chrono.SetTimeWarp(4.f);
-	}*/
 
-	/*if (Input::IsKey(VK_SPACE))
+	if (mp_wall == nullptr)
 	{
-		XMFLOAT3 translation = { 0, speed, 0 };
-		TranslateWorld(translation);
+		shots.clear();
 	}
-	if (Input::IsKey(VK_LCONTROL))
-	{
-		XMFLOAT3 translation = { 0, -speed, 0 };
-		TranslateWorld(translation);
-	}*/
 
-	/*GameObject* gameObjectParticleEmitter = GetParticleEmitter();
-	ParticleEmitersComponent& particleEmiters = gameObjectParticleEmitter->GetComponent<ParticleEmitersComponent>();
-	particleEmiters.m_maxXYZ[INDEX_PARTICLE_PlAYER] = XMFLOAT3(posPlayer.x + OFFSET_CENTER_PARTICLE, posPlayer.y + OFFSET_CENTER_PARTICLE, posPlayer.z + OFFSET_CENTER_PARTICLE);
-	particleEmiters.m_minXYZ[INDEX_PARTICLE_PlAYER] = XMFLOAT3(posPlayer.x - OFFSET_CENTER_PARTICLE, posPlayer.y - OFFSET_CENTER_PARTICLE, posPlayer.z - OFFSET_CENTER_PARTICLE);*/
+	for (auto it = shots.begin(); it != shots.end(); )
+	{
+		GameObject* shot = *it;
+
+		if (shot == nullptr || shot->GetScene() == nullptr)
+		{
+			it = shots.erase(it);
+		}
+		else
+		{
+			shot->MoveWorldForward(7 * dt);
+			++it;
+		}
+	}
 }
 
 void Player::OnCollision(u32 self, u32 other, const CollisionInfo& collisionInfo)
@@ -82,7 +88,17 @@ void Player::OnCollision(u32 self, u32 other, const CollisionInfo& collisionInfo
 
 void Player::OnDestroy()
 {
+	shots.clear();
+}
 
+void Player::SetTarget(GameObject* p_target)
+{
+	mp_target = p_target;
+}
+
+void Player::SetWall(GameObject* p_Wall)
+{
+	mp_wall = p_Wall;
 }
 
 void Player::SetParticleEmitter(GameObject* particleEmitter)
