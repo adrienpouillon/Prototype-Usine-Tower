@@ -16,7 +16,10 @@ using namespace DirectX;
 
 #include "Camera.h"
 #include "Score.h"
+#include "Enemy.h"
+#include "EnemyGenerator.h"
 #include "Player.h"
+
 
 
 #endif

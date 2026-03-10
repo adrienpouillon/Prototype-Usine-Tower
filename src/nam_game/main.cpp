@@ -39,6 +39,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmdLine, i
 			Light* p_sun = app->GetLightManager().CreateLight();
 			p_sun->SetToDirectionalLight(0.75f, { 0, -1, 0 }, { 1, 1, 1 });
 
+			//creation score
+			Score* score = caveScene->CreateGameObject<Score>();
+			{
+				//score->AddComponent<>
+			}
+
 			//creation player
 			Player* player = caveScene->CreateGameObject<Player>();
 			{
@@ -50,22 +56,25 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmdLine, i
 				XMFLOAT3 pos = XMFLOAT3(0.f, 1.f, -5.f);
 				player->SetWorldPosition(pos);
 				player->SetMesh(mesh);
+				player->SetScore(score);
 			}
 
 			//creation enemy
-			GameObject* enemy = caveScene->CreateGameObject<GameObject>();
+			EnemyGenerator* enemyGenerator = caveScene->CreateGameObject<EnemyGenerator>();
 			{
 				Mesh* mesh = app->CreateEmptyMesh();
-				mesh->BuildUvSphere(1.f, 20, 20, { 1, 1, 1, 1 });
-				mesh->MakeRainbowVertices();
+				mesh->BuildUvSphere(1.f, 20, 20, { 1, 0, 0, 1 });
 				mesh->SetTexture(_Stone);
 
-				XMFLOAT3 pos = XMFLOAT3( -1.f, 1.f, 5.f);
+				XMFLOAT3 pos = XMFLOAT3(5.f, 0.f, -10.f);
+				XMFLOAT3 scale = XMFLOAT3(1.f, 1.f, 1.f);
 
-				enemy->SetSphereCollider();
-				enemy->SetWorldPosition(pos);
-				enemy->SetMesh(mesh);
-			}		
+				enemyGenerator->SetWorldPosition(pos);
+				enemyGenerator->SetWorldScale(scale);
+				enemyGenerator->SetMeshEnemy(mesh);
+				enemyGenerator->SetScore(score);
+			}
+			//Enemy* enemy = EnemyGenerator::CreateEnemy(caveScene, XMFLOAT3(5.f, 0.f, -10.f), XMFLOAT3(0.25f, 0.25f, 0.25f), mesh, score);
 
 			//creation floor
 			GameObject* floor = caveScene->CreateGameObject<GameObject>();
@@ -111,12 +120,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmdLine, i
 
 				particleEmitter->AddComponent(transform);
 				particleEmitter->AddComponent(emiters);
-			}
-
-			//creation score
-			Score* score = caveScene->CreateGameObject<Score>();
-			{
-				//score->AddComponent<>
 			}
 
 			//button
