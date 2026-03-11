@@ -1,19 +1,12 @@
 #pragma once
-
-#define OFFSET_CENTER_PARTICLE 1.f
-#define INDEX_PARTICLE_PlAYER 0
-
-#define SPEED_PLAYER 5.f
-#define SPEED_SHOT 75.f
-#define LIFETIME_SHOT 1.f
-
-class Player : public GameObject
+class Machine : public GameObject
 {
 private:
-	GameObject* mp_particleEmitter;
 	Score* m_score;
+	Timer m_timeTrans;
+	float m_multiply;
 public:
-	Player();
+	Machine();
 
 	void OnInit() override;
 	void OnStart() override;
@@ -21,11 +14,9 @@ public:
 	void OnCollision(u32 self, u32 other, const CollisionInfo& collisionInfo) override;
 	void OnDestroy() override;
 
-	void SetParticleEmitter(GameObject* particleEmitter);
-	GameObject* GetParticleEmitter();
-
 	void SetScore(Score* score);
 	void IncreaseCreateMatter(int add);
 	void IncreaseCropsZombie(int add);
 	Score* GetScore();
 };
+

@@ -56,7 +56,6 @@ void Player::OnUpdate()
 		XMFLOAT3 translation = { 0, -speed, 0 };
 		TranslateWorld(translation);
 	}
-
 	/*GameObject* gameObjectParticleEmitter = GetParticleEmitter();
 	ParticleEmitersComponent& particleEmiters = gameObjectParticleEmitter->GetComponent<ParticleEmitersComponent>();
 	particleEmiters.m_maxXYZ[INDEX_PARTICLE_PlAYER] = XMFLOAT3(posPlayer.x + OFFSET_CENTER_PARTICLE, posPlayer.y + OFFSET_CENTER_PARTICLE, posPlayer.z + OFFSET_CENTER_PARTICLE);
@@ -88,9 +87,14 @@ void Player::SetScore(Score* score)
 	m_score = score;
 }
 
-void Player::IncreaseGameScore(int add)
+void Player::IncreaseCreateMatter(int add)
 {
-	m_score->IncreaseScore(add);
+	m_score->IncreaseCreateMatter(add);
+}
+
+void Player::IncreaseCropsZombie(int add)
+{
+	m_score->IncreaseCropsZombie(add);
 }
 
 Score* Player::GetScore()

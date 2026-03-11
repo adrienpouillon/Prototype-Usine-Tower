@@ -60,22 +60,58 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmdLine, i
 			}
 
 			//creation enemy
+			Tower* tower = caveScene->CreateGameObject<Tower>();
+			{
+				Mesh* mesh = app->CreateEmptyMesh();
+				mesh->BuildCube(2.f, { 1, 0, 0, 1 });
+
+				Mesh* meshShot = app->CreateEmptyMesh();
+				meshShot->BuildUvSphere(1.f, 20, 20, { 1, 0, 0, 1 });
+				meshShot->SetTexture(_Heart);
+
+				XMFLOAT3 pos = XMFLOAT3(5.f, 0.f, 20.f);
+				XMFLOAT3 scale = XMFLOAT3(1.f, 1.f, 1.f);
+
+				tower->SetWorldPosition(pos);
+				tower->SetWorldScale(scale);
+				tower->SetMeshShot(meshShot);
+				tower->SetMesh(mesh);
+				tower->SetScore(score);
+				tower->SetBoxCollider();
+			}
+
+			//creation enemy
 			EnemyGenerator* enemyGenerator = caveScene->CreateGameObject<EnemyGenerator>();
 			{
 				Mesh* mesh = app->CreateEmptyMesh();
-				mesh->BuildUvSphere(1.f, 20, 20, { 1, 0, 0, 1 });
-				mesh->SetTexture(_Stone);
+				mesh->BuildCube(2.f, { 1, 0, 0, 1 });
 
-				XMFLOAT3 pos = XMFLOAT3(5.f, 0.f, -10.f);
-				XMFLOAT3 scale = XMFLOAT3(1.f, 1.f, 1.f);
+				Mesh* meshEnemy = app->CreateEmptyMesh();
+				meshEnemy->BuildUvSphere(1.f, 20, 20, { 1, 0, 0, 1 });
+				meshEnemy->SetTexture(_Stone);
+
+				XMFLOAT3 pos = XMFLOAT3(5.f, 0.f, -20.f);
 
 				enemyGenerator->SetWorldPosition(pos);
-				enemyGenerator->SetWorldScale(scale);
-				enemyGenerator->SetMeshEnemy(mesh);
+				enemyGenerator->SetMeshEnemy(meshEnemy);
 				enemyGenerator->SetScore(score);
+				enemyGenerator->SetMesh(mesh);
+				enemyGenerator->SetBoxCollider();
 			}
-			//Enemy* enemy = EnemyGenerator::CreateEnemy(caveScene, XMFLOAT3(5.f, 0.f, -10.f), XMFLOAT3(0.25f, 0.25f, 0.25f), mesh, score);
 
+			//creation enemy
+			Machine* machine = caveScene->CreateGameObject<Machine>();
+			{
+				Mesh* mesh = app->CreateEmptyMesh();
+				mesh->BuildCube(2.f, { 1, 0, 0, 1 });
+
+				XMFLOAT3 pos = XMFLOAT3(0.f, 0.f, 30.f);
+
+				machine->SetWorldPosition(pos);
+				machine->SetScore(score);
+				machine->SetMesh(mesh);
+			}
+			
 			//creation floor
 			GameObject* floor = caveScene->CreateGameObject<GameObject>();
 			{

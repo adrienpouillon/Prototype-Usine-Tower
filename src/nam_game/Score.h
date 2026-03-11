@@ -3,8 +3,8 @@
 class Score : public GameObject
 {
 private:
-	int m_score;
-	Timer m_timer;
+	int m_createMatter;
+	int m_cropsZombie;
 
 	TextRendererComponent* mp_textRender;
 public:
@@ -15,7 +15,11 @@ public:
 	void OnUpdate() override;
 	void OnDestroy() override;
 
-	void SetScore(int score);
-	void IncreaseScore(int add);
-	int GetScore();
+	void SetCreateMatter(int createMatter);
+	void IncreaseCreateMatter(int add);
+	int GetCreateMatter();
+
+	void SetCropsZombie(int cropsZombie);
+	void IncreaseCropsZombie(int add);
+	int GetCropsZombie();
 };

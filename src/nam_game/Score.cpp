@@ -3,14 +3,14 @@
 
 Score::Score()
 {
-	m_score = 0;
+	m_createMatter = 0;
+	m_cropsZombie = 0;
 }
 
 void Score::OnInit()
 {
-	m_timer.Init(1.f);
-
-	m_score = 0;
+	m_createMatter = 10;
+	m_cropsZombie = 0;
 
 	TextRendererComponent textRender;
 
@@ -33,7 +33,7 @@ void Score::OnInit()
 
 void Score::OnStart()
 {
-	m_score = 0;
+
 }
 
 void Score::OnUpdate()
@@ -41,15 +41,7 @@ void Score::OnUpdate()
 	App* app = App::Get();
 	float dt = app->GetChrono().GetScaledDeltaTime();
 
-	m_timer.Update(dt);
-
-	if (m_timer.IsTargetReached())
-	{
-		m_timer.ResetProgress();
-		IncreaseScore(1);
-	}
-
-	std::string toDisplay = "Score : " + std::to_string(m_score);
+	std::string toDisplay = "Matiere Creatrice : " + std::to_string(m_createMatter) + "\n" + "Cadavre Zombie : " + std::to_string(m_cropsZombie);
 	mp_textRender->mp_text->SetText(toDisplay);
 	mp_textRender->mp_text->MakeRainbowVertices();
 }
@@ -59,19 +51,34 @@ void Score::OnDestroy()
 
 }
 
-void Score::SetScore(int score)
+void Score::SetCreateMatter(int createMatter)
 {
-	m_score = score;
+	m_createMatter = createMatter;
 }
 
-void Score::IncreaseScore(int add)
+void Score::IncreaseCreateMatter(int add)
 {
-	m_score += add;
+	m_createMatter += add;
 }
 
-int Score::GetScore()
+int Score::GetCreateMatter()
 {
-	return m_score;
+	return m_createMatter;
+}
+
+void Score::SetCropsZombie(int cropsZombie)
+{
+	m_cropsZombie = cropsZombie;
+}
+
+void Score::IncreaseCropsZombie(int add)
+{
+	m_cropsZombie += add;
+}
+
+int Score::GetCropsZombie()
+{
+	return m_cropsZombie;
 }
 
 

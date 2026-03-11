@@ -3,6 +3,7 @@ class Enemy : public GameObject
 {
 private:
 	Score* m_score;
+	int m_life;
 public:
 	Enemy();
 
@@ -16,7 +17,11 @@ public:
 	GameObject* GetParticleEmitter();
 
 	void SetScore(Score* score);
-	void IncreaseGameScore(int add);
+	void IncreaseCreateMatter(int add);
+	void IncreaseCropsZombie(int add);
 	Score* GetScore();
+
+	void SetLife(int life);
+	int GetLife();
 };
 
