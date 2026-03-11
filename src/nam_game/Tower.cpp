@@ -35,7 +35,7 @@ void Tower::OnUpdate()
 		{
 			m_score->SetCreateMatter(createMatter - 1);
 			CreateShot(GetScene(), GetWorldPosition(), XMFLOAT3(0.1f, 0.1f, 0.1f), XMFLOAT3(0.f, 0.f, -0.5f), m_meshShot);
-			m_timeReset += Rng::Float(-0.2f, 0.1f);
+			m_timeReset += Rng::Float(-0.04f, 0.02f);
 			m_timeCreate.SetTargetTime(m_timeReset);
 		}
 	}
@@ -90,4 +90,9 @@ void Tower::IncreaseCropsZombie(int add)
 Score* Tower::GetScore()
 {
 	return m_score;
+}
+
+void Tower::IncreaseTimeReset(float timeReset)
+{
+	m_timeReset += timeReset;
 }

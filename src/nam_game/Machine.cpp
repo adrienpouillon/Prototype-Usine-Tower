@@ -48,6 +48,7 @@ void Machine::OnUpdate()
 			m_timeTrans.ResetProgress();
 		}
 	}
+
 	if(m_multiply>0.5f)
 	{
 		m_multiply -= 0.01f;
@@ -86,4 +87,16 @@ void Machine::IncreaseCropsZombie(int add)
 Score* Machine::GetScore()
 {
 	return m_score;
+}
+
+void Machine::IncreaseMultiply(float multiply)
+{
+	if (m_multiply > 0.5f)
+	{
+		m_multiply -= multiply;
+	}
+	else
+	{
+		m_multiply = 0.5f;
+	}
 }

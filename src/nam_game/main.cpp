@@ -59,7 +59,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmdLine, i
 				player->SetScore(score);
 			}
 
-			//creation enemy
+			//creation tower
 			Tower* tower = caveScene->CreateGameObject<Tower>();
 			{
 				Mesh* mesh = app->CreateEmptyMesh();
@@ -69,7 +69,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmdLine, i
 				meshShot->BuildUvSphere(1.f, 20, 20, { 1, 0, 0, 1 });
 				meshShot->SetTexture(_Heart);
 
-				XMFLOAT3 pos = XMFLOAT3(5.f, 0.f, 20.f);
+				XMFLOAT3 pos = XMFLOAT3(10.f, 0.f, 20.f);
 				XMFLOAT3 scale = XMFLOAT3(1.f, 1.f, 1.f);
 
 				tower->SetWorldPosition(pos);
@@ -80,7 +80,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmdLine, i
 				tower->SetBoxCollider();
 			}
 
-			//creation enemy
+			//creation Generator enemy
 			EnemyGenerator* enemyGenerator = caveScene->CreateGameObject<EnemyGenerator>();
 			{
 				Mesh* mesh = app->CreateEmptyMesh();
@@ -90,7 +90,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmdLine, i
 				meshEnemy->BuildUvSphere(1.f, 20, 20, { 1, 0, 0, 1 });
 				meshEnemy->SetTexture(_Stone);
 
-				XMFLOAT3 pos = XMFLOAT3(5.f, 0.f, -20.f);
+				XMFLOAT3 pos = XMFLOAT3(10.f, 0.f, -20.f);
 
 				enemyGenerator->SetWorldPosition(pos);
 				enemyGenerator->SetMeshEnemy(meshEnemy);
@@ -99,13 +99,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmdLine, i
 				enemyGenerator->SetBoxCollider();
 			}
 
-			//creation enemy
+			//creation machine
 			Machine* machine = caveScene->CreateGameObject<Machine>();
 			{
 				Mesh* mesh = app->CreateEmptyMesh();
 				mesh->BuildCube(2.f, { 1, 0, 0, 1 });
 
-				XMFLOAT3 pos = XMFLOAT3(0.f, 0.f, 30.f);
+				XMFLOAT3 pos = XMFLOAT3(0.f, 0.f, 19.f);
 
 				machine->SetWorldPosition(pos);
 				machine->SetScore(score);
@@ -130,6 +130,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmdLine, i
 				camera->SetAppCamera(appCamera);
 				camera->SetTarget(player);
 			}
+
+			/*//creation Camera
+			TimeReference* timeReference = caveScene->CreateGameObject<TimeReference>();
+			{
+				camera->SetAppCamera(appCamera);
+				camera->SetTarget(player);
+			}*/
 
 			//creation Particle Emitter
 			GameObject* particleEmitter = caveScene->CreateGameObject<GameObject>();

@@ -98,3 +98,12 @@ Score* EnemyGenerator::GetScore()
 {
 	return m_score;
 }
+
+void EnemyGenerator::IncreaseLifeZombie(float lifeZombie)
+{
+	m_lifeZombie = lifeZombie;
+	if (m_lifeZombie < 1)
+	{
+		m_lifeZombie = 1;
+	}
+}

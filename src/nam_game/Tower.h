@@ -24,5 +24,7 @@ public:
 	void IncreaseCreateMatter(int add);
 	void IncreaseCropsZombie(int add);
 	Score* GetScore();
+
+	void IncreaseTimeReset(float timeReset);
 };
 
