@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "TimeReference.h"
 
-/*TimeReference::TimeReference()
+TimeReference::TimeReference()
 {
 
 }
@@ -52,6 +52,6 @@ void TimeReference::SetTower(Tower* tower)
 void TimeReference::SetEnemyGenerator(EnemyGenerator* enemyGenerator)
 {
 	m_enemyGenerator = enemyGenerator;
-}*/
+}
 
 

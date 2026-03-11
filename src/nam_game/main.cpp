@@ -131,12 +131,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmdLine, i
 				camera->SetTarget(player);
 			}
 
-			/*//creation Camera
+			//creation Camera
 			TimeReference* timeReference = caveScene->CreateGameObject<TimeReference>();
 			{
-				camera->SetAppCamera(appCamera);
-				camera->SetTarget(player);
-			}*/
+				timeReference->SetMachine(machine);
+				timeReference->SetTower(tower);
+				timeReference->SetEnemyGenerator(enemyGenerator);
+			}
 
 			//creation Particle Emitter
 			GameObject* particleEmitter = caveScene->CreateGameObject<GameObject>();
