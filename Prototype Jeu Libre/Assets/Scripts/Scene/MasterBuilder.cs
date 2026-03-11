@@ -18,31 +18,46 @@ public class MasterBuilder : MonoBehaviour
     /// <SINGLETON>
 
     // BUILDING VARIANTS
-    [SerializeField] private GameObject[] buildingVariants; // Array of different building prefabs
-    [SerializeField] private float3[] buildingScales; // Array of different building prefabs
+    [Header("Conveyor")]
+    [SerializeField] private GameObject[] conveyorVariants; // Array of different building prefabs
+    [SerializeField] private float3[] conveyorScales; // Array of different building prefabs
+    [Header("General")]
+    [SerializeField] private GameObject[] generalVariants; // Array of different building prefabs
+    [SerializeField] private float3[] generalScales; // Array of different building prefabs
+    [Header("Armory")]
+    [SerializeField] private GameObject[] armoryVariants; // Array of different building prefabs
+    [SerializeField] private float3[] armoryScales; // Array of different building prefabs
+    [Header("Turret")]
+    [SerializeField] private GameObject[] turretVariants; // Array of different building prefabs
+    [SerializeField] private float3[] turretScales; // Array of different building prefabs
 
 
     /// TOOLS
 
 
     /// METHODS
-
-    public GameObject GetRandomBuilding()
+    public Tuple<GameObject, float3> GetConveyor(int index)
     {
-        int randomIndex = UnityEngine.Random.Range(0, buildingVariants.Length);
-        return buildingVariants[randomIndex];
+        if (index < conveyorVariants.Length)
+            return new Tuple<GameObject, float3>(conveyorVariants[index], conveyorScales[index]);
+        return null;
     }
-
-    public Tuple<GameObject, float3> GetRandomBuildingWithScale()
+    public Tuple<GameObject, float3> GetGeneral(int index)
     {
-        int randomIndex = UnityEngine.Random.Range(0, buildingVariants.Length);
-        return new Tuple<GameObject, float3>(buildingVariants[randomIndex], buildingScales[randomIndex]);
+        if (index < generalVariants.Length)
+            return new Tuple<GameObject, float3>(generalVariants[index], generalScales[index]);
+        return null;
     }
-
-    public Tuple<GameObject, float3> GetBuilding(int index)
+    public Tuple<GameObject, float3> GetArmory(int index)
     {
-        if (index < buildingVariants.Length)
-            return new Tuple<GameObject, float3>(buildingVariants[index], buildingScales[index]);
+        if (index < armoryVariants.Length)
+            return new Tuple<GameObject, float3>(armoryVariants[index], armoryScales[index]);
+        return null;
+    }
+    public Tuple<GameObject, float3> GetTurret(int index)
+    {
+        if (index < turretVariants.Length)
+            return new Tuple<GameObject, float3>(turretVariants[index], turretScales[index]);
         return null;
     }
 

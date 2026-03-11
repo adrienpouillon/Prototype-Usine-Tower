@@ -742,6 +742,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Shortcut4",
+                    "type": "Button",
+                    "id": "6438d430-43b4-4ed0-9f82-d70dda1be674",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Shortcut5",
+                    "type": "Button",
+                    "id": "f067d2e6-5533-4078-ae31-ee8a32205eb4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -819,6 +837,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Shortcut3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b831ae70-c9aa-4528-9393-c403e904350a",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shortcut4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e51abe61-b521-4ecc-be70-9900e552fab4",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shortcut5",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

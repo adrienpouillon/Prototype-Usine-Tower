@@ -14,10 +14,10 @@ TagManager:
   - Ground
   - Zombies
   - Wall
-  - 
-  - 
-  - 
-  - 
+  - Machine_Input
+  - Machine_Output
+  - Conveyor_Input
+  - Conveyor_Output
   - 
   - 
   - 

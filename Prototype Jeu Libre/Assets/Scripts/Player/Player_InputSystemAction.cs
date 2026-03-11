@@ -828,6 +828,24 @@ public partial class @Player_InputSystemAction: IInputActionCollection2, IDispos
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shortcut4"",
+                    ""type"": ""Button"",
+                    ""id"": ""6438d430-43b4-4ed0-9f82-d70dda1be674"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shortcut5"",
+                    ""type"": ""Button"",
+                    ""id"": ""f067d2e6-5533-4078-ae31-ee8a32205eb4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -905,6 +923,28 @@ public partial class @Player_InputSystemAction: IInputActionCollection2, IDispos
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Shortcut3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b831ae70-c9aa-4528-9393-c403e904350a"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shortcut4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e51abe61-b521-4ecc-be70-9900e552fab4"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shortcut5"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -999,6 +1039,8 @@ public partial class @Player_InputSystemAction: IInputActionCollection2, IDispos
         m_Build_Mode_Shortcut1 = m_Build_Mode.FindAction("Shortcut1", throwIfNotFound: true);
         m_Build_Mode_Shortcut2 = m_Build_Mode.FindAction("Shortcut2", throwIfNotFound: true);
         m_Build_Mode_Shortcut3 = m_Build_Mode.FindAction("Shortcut3", throwIfNotFound: true);
+        m_Build_Mode_Shortcut4 = m_Build_Mode.FindAction("Shortcut4", throwIfNotFound: true);
+        m_Build_Mode_Shortcut5 = m_Build_Mode.FindAction("Shortcut5", throwIfNotFound: true);
     }
 
     ~@Player_InputSystemAction()
@@ -1400,6 +1442,8 @@ public partial class @Player_InputSystemAction: IInputActionCollection2, IDispos
     private readonly InputAction m_Build_Mode_Shortcut1;
     private readonly InputAction m_Build_Mode_Shortcut2;
     private readonly InputAction m_Build_Mode_Shortcut3;
+    private readonly InputAction m_Build_Mode_Shortcut4;
+    private readonly InputAction m_Build_Mode_Shortcut5;
     /// <summary>
     /// Provides access to input actions defined in input action map "Build_Mode".
     /// </summary>
@@ -1435,6 +1479,14 @@ public partial class @Player_InputSystemAction: IInputActionCollection2, IDispos
         /// Provides access to the underlying input action "Build_Mode/Shortcut3".
         /// </summary>
         public InputAction @Shortcut3 => m_Wrapper.m_Build_Mode_Shortcut3;
+        /// <summary>
+        /// Provides access to the underlying input action "Build_Mode/Shortcut4".
+        /// </summary>
+        public InputAction @Shortcut4 => m_Wrapper.m_Build_Mode_Shortcut4;
+        /// <summary>
+        /// Provides access to the underlying input action "Build_Mode/Shortcut5".
+        /// </summary>
+        public InputAction @Shortcut5 => m_Wrapper.m_Build_Mode_Shortcut5;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1479,6 +1531,12 @@ public partial class @Player_InputSystemAction: IInputActionCollection2, IDispos
             @Shortcut3.started += instance.OnShortcut3;
             @Shortcut3.performed += instance.OnShortcut3;
             @Shortcut3.canceled += instance.OnShortcut3;
+            @Shortcut4.started += instance.OnShortcut4;
+            @Shortcut4.performed += instance.OnShortcut4;
+            @Shortcut4.canceled += instance.OnShortcut4;
+            @Shortcut5.started += instance.OnShortcut5;
+            @Shortcut5.performed += instance.OnShortcut5;
+            @Shortcut5.canceled += instance.OnShortcut5;
         }
 
         /// <summary>
@@ -1508,6 +1566,12 @@ public partial class @Player_InputSystemAction: IInputActionCollection2, IDispos
             @Shortcut3.started -= instance.OnShortcut3;
             @Shortcut3.performed -= instance.OnShortcut3;
             @Shortcut3.canceled -= instance.OnShortcut3;
+            @Shortcut4.started -= instance.OnShortcut4;
+            @Shortcut4.performed -= instance.OnShortcut4;
+            @Shortcut4.canceled -= instance.OnShortcut4;
+            @Shortcut5.started -= instance.OnShortcut5;
+            @Shortcut5.performed -= instance.OnShortcut5;
+            @Shortcut5.canceled -= instance.OnShortcut5;
         }
 
         /// <summary>
@@ -1762,5 +1826,19 @@ public partial class @Player_InputSystemAction: IInputActionCollection2, IDispos
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnShortcut3(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Shortcut4" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnShortcut4(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Shortcut5" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnShortcut5(InputAction.CallbackContext context);
     }
 }
