@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: Bullet
+  m_Name: Fire_Bullet
   m_EditorClassIdentifier: Assembly-CSharp::Recipe
   inputs:
-  - type: iron
+  - type: bullet
     amount: 1
   output:
     type: bullet
-    amount: 2
-  processingTime: 2
+    amount: 1
+  processingTime: 1

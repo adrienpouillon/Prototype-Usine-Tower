@@ -104,7 +104,7 @@ public class Machine : MonoBehaviour
     {
         outputSlot.amount += currentRecipe.output.amount;
         isProcessing = false;
-        Debug.Log($"{gameObject.name} a produit : {currentRecipe.output.type}");
+        //Debug.Log($"{gameObject.name} a produit : {currentRecipe.output.type}");
     }
 
     // --- SANTÉ ---
@@ -116,7 +116,7 @@ public class Machine : MonoBehaviour
 
     void Die()
     {
-        Debug.Log("Machine détruite !");
+        //Debug.Log("Machine détruite !");
         Destroy(gameObject);
     }
 }
