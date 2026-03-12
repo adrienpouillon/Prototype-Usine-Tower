@@ -51,6 +51,36 @@ public class BuildCursor : MonoBehaviour
         m_cursorFunction = m_cursor.GetComponent<PlayerCursor>();
     }
 
+    public void SwitchBuildMode(BuildMode mode)
+    {
+        m_BuildMode = mode;
+        GetPreview(0);
+    }
+
+    void SwitchBuilding()
+    {
+        if (_inputs.Build_Mode.Shortcut1.WasPressedThisFrame())
+        {
+            GetPreview(0);
+        }
+        else if (_inputs.Build_Mode.Shortcut2.WasPressedThisFrame())
+        {
+            GetPreview(1);
+        }
+        else if (_inputs.Build_Mode.Shortcut3.WasPressedThisFrame())
+        {
+            GetPreview(2);
+        }
+        else if (_inputs.Build_Mode.Shortcut4.WasPressedThisFrame())
+        {
+            GetPreview(3);
+        }
+        else if (_inputs.Build_Mode.Shortcut5.WasPressedThisFrame())
+        {
+            GetPreview(4);
+        }
+    }
+
     void GetPreview(int index)
     {
         Destroy(m_preview);
@@ -90,30 +120,6 @@ public class BuildCursor : MonoBehaviour
         buildingIndex = index;
     }
 
-    void SwitchBuilding()
-    {
-        if(_inputs.Build_Mode.Shortcut1.WasPressedThisFrame())
-        {
-            GetPreview(0);
-        }
-        else if(_inputs.Build_Mode.Shortcut2.WasPressedThisFrame())
-        {
-            GetPreview(1);
-        }
-        else if(_inputs.Build_Mode.Shortcut3.WasPressedThisFrame())
-        {
-            GetPreview(2);
-        }
-        else if(_inputs.Build_Mode.Shortcut4.WasPressedThisFrame())
-        {
-            GetPreview(3);
-        }
-        else if(_inputs.Build_Mode.Shortcut5.WasPressedThisFrame())
-        {
-            GetPreview(4);
-        }
-    }
-
     void Build()
     {
         Vector2 cursorPos = m_cursorFunction.GetGridSnappedPosition(m_cursor.transform.position);
@@ -129,7 +135,7 @@ public class BuildCursor : MonoBehaviour
 
             newBuild.transform.parent = null;
 
-            foreach(Transform child in newBuild.transform)
+            foreach (Transform child in newBuild.transform)
             {
                 child.AddComponent<BoxCollider>();
             }

@@ -9,6 +9,7 @@ public class Spawn : MonoBehaviour
     [SerializeField] private GameObject[] spawnable;
     [SerializeField] private float2 m_PossibleSpeed = new float2(0f, 0f);
     [SerializeField] private LayerMask m_SpawnLayer;
+    [SerializeField] private float m_HP = 1f;
 
     /// METHODS
     void Start()
@@ -30,6 +31,7 @@ public class Spawn : MonoBehaviour
             GameObject capsule = GameObject.CreatePrimitive(PrimitiveType.Capsule);
             MeshRenderer prefabMeshRenderer = capsule.GetComponentInChildren<MeshRenderer>();
             ZombieMovement zombieMovement = capsule.AddComponent<ZombieMovement>();
+            capsule.AddComponent<Health>().SetHealt(m_HP);
             capsule.AddComponent<Rigidbody>();
             capsule.layer = (int)Mathf.Log(m_SpawnLayer.value, 2);
             capsule.name = "Zombie";

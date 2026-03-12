@@ -13,7 +13,7 @@ public class Machine : MonoBehaviour
     public int maxStackSize = 50;
     // Dictionnaire pour gérer les entrées par type : <NomRessource, QuantitéActuelle>
     private Dictionary<string, int> inputInventory = new Dictionary<string, int>();
-    private ResourceStack outputSlot;
+    public ResourceStack outputSlot;
 
     [Header("État de Production")]
     public float progressTimer = 0f;
