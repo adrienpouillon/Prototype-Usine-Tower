@@ -19,7 +19,7 @@ public class BuildCursor : MonoBehaviour
 
     // PREVIEW BUILDINGS
     private GameObject m_preview = null;
-    [SerializeField] private Material m_previewMaterial;
+    [SerializeField] public Material m_previewMaterial;
     private Material[] m_originalMaterials;
     private int buildingIndex = 0;
 
@@ -109,7 +109,6 @@ public class BuildCursor : MonoBehaviour
 
         m_preview = Instantiate(previewWithScale.Item1, cursorPos, Quaternion.identity);
         m_preview.transform.localScale = previewWithScale.Item2;
-        m_preview.transform.Find("Input").gameObject.SetActive(false);
 
         MasterBuilder.Instance.DisableScripts(m_preview);
 
@@ -140,7 +139,6 @@ public class BuildCursor : MonoBehaviour
             {
                 child.AddComponent<BoxCollider>();
             }
-            m_preview.transform.Find("Input").gameObject.SetActive(true);
 
             m_preview = null;
 

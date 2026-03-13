@@ -37,16 +37,38 @@ public class Machine : MonoBehaviour
     // --- FONCTION DEMANDÉE : Tenter d'ajouter une ressource ---
     public bool TryAddResource(string resourceType, int amount)
     {
-        // 1. Vérifie si la ressource fait partie de la recette
-        if (inputInventory.ContainsKey(resourceType))
+        if (currentRecipe != null)
         {
-            // 2. Vérifie s'il y a de la place
-            if (inputInventory[resourceType] + amount <= maxStackSize)
+            //1.Vérifie si la ressource fait partie de la recette
+            if (inputInventory.ContainsKey(resourceType))
             {
-                inputInventory[resourceType] += amount;
-                return true;
+                // 2. Vérifie s'il y a de la place
+                if (inputInventory[resourceType] + amount <= maxStackSize)
+                {
+                    inputInventory[resourceType] += amount;
+                    return true;
+                }
             }
         }
+        else
+        {
+            Debug.LogWarning($"Machine {gameObject.name} n'a pas de recette assignée !");
+            foreach (var inputType in currentRecipe.inputs)
+            {
+                if (inputType.type == resourceType)
+                {
+                    if (inputInventory.ContainsKey(resourceType) == false)
+                        inputInventory[resourceType] = 0;
+
+                    if (inputInventory[resourceType] + amount <= maxStackSize)
+                    {
+                        inputInventory[resourceType] += amount;
+                        return true;
+                    }
+                }
+            }
+        }
+
         return false; // Refusé (mauvais type ou plein)
     }
 
