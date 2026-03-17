@@ -1,6 +1,6 @@
 #pragma once
 
-/*class TimeReference : public GameObject
+class TimeReference : public GameObject
 {
 private:
 	Timer m_timeUpdate;
@@ -21,5 +21,5 @@ public:
 	void SetTower(Tower* tower);
 	void SetEnemyGenerator(EnemyGenerator* enemyGenerator);
 
-};*/
+};
 

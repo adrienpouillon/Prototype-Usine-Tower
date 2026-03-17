@@ -24,21 +24,8 @@ void Tower::OnUpdate()
 {
 	AppChrono& chrono = App::Get()->GetChrono();
 	float dt = chrono.GetScaledDeltaTime();
-	m_timeCreate.Update(dt);
 
 	SetWorldScale(XMFLOAT3(m_timeReset + 1.f, 1.f, (float)m_life/5.f + 0.1f));
-
-	if (m_timeCreate.IsTargetReached())
-	{
-		int createMatter = m_score->GetCreateMatter();
-		if(createMatter > 0)
-		{
-			m_score->SetCreateMatter(createMatter - 1);
-			CreateShot(GetScene(), GetWorldPosition(), XMFLOAT3(0.1f, 0.1f, 0.1f), XMFLOAT3(0.f, 0.f, -0.5f), m_meshShot);
-			m_timeReset += Rng::Float(-0.04f, 0.02f);
-			m_timeCreate.SetTargetTime(m_timeReset);
-		}
-	}
 }
 
 void Tower::OnCollision(u32 self, u32 other, const CollisionInfo& collisionInfo)
@@ -53,7 +40,18 @@ void Tower::OnCollision(u32 self, u32 other, const CollisionInfo& collisionInfo)
 
 void Tower::OnDestroy()
 {
+	
+}
 
+void Tower::TimeUpdate()
+{
+	int createMatter = m_score->GetCreateMatter();
+	if (createMatter > 0)
+	{
+		m_score->SetCreateMatter(createMatter - 1);
+		CreateShot(GetScene(), GetWorldPosition(), XMFLOAT3(0.1f, 0.1f, 0.1f), XMFLOAT3(0.f, 0.f, -1.f), m_meshShot);
+		m_timeReset += Rng::Float(-0.04f, 0.02f);
+	}
 }
 
 Shot* Tower::CreateShot(Scene* scene, XMFLOAT3 pos, XMFLOAT3 scale, XMFLOAT3 velocity, Mesh* mesh)

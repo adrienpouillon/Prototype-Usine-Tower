@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "TimeReference.h"
 
-/*TimeReference::TimeReference()
+TimeReference::TimeReference()
 {
 
 }
@@ -22,10 +22,12 @@ void TimeReference::OnUpdate()
 	AppChrono& chrono = App::Get()->GetChrono();
 	float dt = chrono.GetScaledDeltaTime();
 	m_timeUpdate.Update(dt);
-
+	
 	if (m_timeUpdate.IsTargetReached())
 	{
-		
+		m_machine.
+			m_tower
+			m_enemyGenerator
 	}
 }
 
@@ -52,6 +54,5 @@ void TimeReference::SetTower(Tower* tower)
 void TimeReference::SetEnemyGenerator(EnemyGenerator* enemyGenerator)
 {
 	m_enemyGenerator = enemyGenerator;
-}*/
-
+}
 

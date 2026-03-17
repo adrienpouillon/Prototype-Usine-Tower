@@ -17,6 +17,8 @@ public:
 	void OnCollision(u32 self, u32 other, const CollisionInfo& collisionInfo) override;
 	void OnDestroy() override;
 
+	void TimeUpdate();
+
 	static Enemy* CreateEnemy(Scene* scene, XMFLOAT3 pos, XMFLOAT3 scale, Mesh* mesh, Score* score, int life);
 
 	void SetParticleEmitter(GameObject* particleEmitter);

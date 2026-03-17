@@ -16,6 +16,8 @@ public:
 	void OnCollision(u32 self, u32 other, const CollisionInfo& collisionInfo) override;
 	void OnDestroy() override;
 
+	void TimeUpdate();
+
 	static Shot* CreateShot(Scene* scene, XMFLOAT3 pos, XMFLOAT3 scale, XMFLOAT3 velocity, Mesh* mesh);
 
 	void SetMeshShot(Mesh* mesh);
